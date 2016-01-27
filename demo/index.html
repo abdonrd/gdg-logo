@@ -14,12 +14,55 @@ This code may only be used under the MIT license.
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-input/paper-input.html">
     <link rel="import" href="../gdg-logo.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
+      .generator  {
+        margin: 0 0 40px;
+      }
+
+      .generator paper-input {
+        margin-bottom: 1em;
+      }
+
+      .footer {
+        text-align: center;
+        margin-bottom: 2em;
+        padding-top: 1em;
+      }
     </style>
   </head>
   <body unresolved>
+    <div class="vertical-section-container centered">
+      <h4>Get the Google Developer Group program logo</h4>
+      <demo-snippet class="centered-demo">
+        <template>
+          <gdg-logo></gdg-logo>
+        </template>
+      </demo-snippet>
 
+      <h4>Get a Google Developer Group chapter logo</h4>
+      <demo-snippet class="centered-demo">
+        <template>
+          <gdg-logo name="Spain"></gdg-logo>
+        </template>
+      </demo-snippet>
+
+      <h4>Generate your Google Developer Group chapter logo</h4>
+      <div class="vertical-section generator">
+        <template is="dom-bind">
+          <paper-input label="City name" value="{{name::input}}"></paper-input>
+          <gdg-logo name="{{name}}"></gdg-logo>
+        </template>
+        <script>
+          document.querySelector('template[is="dom-bind"]').name = 'Spain';
+        </script>
+      </div>
+    </div>
+
+    <div class="footer centered">
+      Made with ♥ by <a href="http://abdonrd.com">Abdón</a>. Find this on <a href="https://github.com/abdonrd/gdg-logo">GitHub</a>.
+    </div>
   </body>
 </html>
