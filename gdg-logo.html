@@ -47,17 +47,26 @@ Example to generate the Google Developer Group chapter logo:
       is: 'gdg-logo',
 
       properties: {
+        /**
+         * The name of the GDG chapter.
+         */
         name: {
           type: String,
           value: '',
           observer: '_nameChanged'
         },
 
+        /**
+         * The scale of the output image.
+         */
         _scale: {
           type: Number,
           value: 2
         },
 
+        /**
+         * Flag to know if the 'Product Sans' family font has been loaded.
+         */
         _fontLoaded: {
           type: Boolean,
           value: false
