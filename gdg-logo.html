@@ -5,6 +5,7 @@ This code may only be used under the MIT license.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
 
 <!--
 Polymer element to generate the Google Developer Group logo.
@@ -30,7 +31,30 @@ Polymer element to generate the Google Developer Group logo.
 
   <script>
     Polymer({
-      is: 'gdg-logo'
+      is: 'gdg-logo',
+
+      properties: {
+        _fontLoaded: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      created: function() {
+        var self = this;
+        WebFont.load({
+          google: {
+            families: ['Product Sans']
+          },
+          active: function() {
+            self._fontLoaded = true;
+            self.drawImage();
+          }
+        });
+      },
+
+      drawImage: function() {
+      }
     });
   </script>
 </dom-module>
