@@ -34,9 +34,21 @@ Polymer element to generate the Google Developer Group logo.
       is: 'gdg-logo',
 
       properties: {
+        name: {
+          type: String,
+          value: '',
+          observer: '_nameChanged'
+        },
+
         _fontLoaded: {
           type: Boolean,
           value: false
+        }
+      },
+
+      _nameChanged: function() {
+        if (this._fontLoaded) {
+          this.drawImage();
         }
       },
 
