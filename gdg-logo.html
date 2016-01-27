@@ -14,7 +14,18 @@ Polymer element to generate the Google Developer Group logo.
 
 <dom-module id="gdg-logo">
   <template>
+    <style>
+      #image {
+        max-width: 100%;
+      }
+    </style>
 
+    <img id="image">
+
+    <div hidden>
+      <img id="gdgIcon" src="gdg_icon.svg">
+      <img id="gdgLogotype" src="gdg_logotype.svg">
+    </div>
   </template>
 
   <script>
