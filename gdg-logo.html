@@ -38,7 +38,6 @@ Example to generate the Google Developer Group chapter logo:
     <div hidden>
       <img id="gdgIcon" src="gdg_icon.svg">
       <img id="gdgLogotype" src="gdg_logotype.svg">
-      <canvas id="canvas"></canvas>
     </div>
   </template>
 
@@ -54,6 +53,16 @@ Example to generate the Google Developer Group chapter logo:
           type: String,
           value: '',
           observer: '_nameChanged'
+        },
+
+        /**
+         * The canvas
+         */
+        _canvas: {
+          type: Object,
+          value: function() {
+            return document.createElement('canvas');
+          }
         },
 
         /**
@@ -81,7 +90,7 @@ Example to generate the Google Developer Group chapter logo:
         }
       },
 
-      created: function() {
+      ready: function() {
         this._loadResources(function() {
           this._drawImage();
         }.bind(this));
@@ -91,6 +100,7 @@ Example to generate the Google Developer Group chapter logo:
         this._loadImages(function() {
           this._isResourcesLoaded(cb);
         }.bind(this));
+
         this._loadFont(function() {
           this._isResourcesLoaded(cb);
         }.bind(this));
@@ -127,12 +137,12 @@ Example to generate the Google Developer Group chapter logo:
       },
 
       _drawImage: function() {
-        var ctx = this.$.canvas.getContext('2d');
+        var ctx = this._canvas.getContext('2d');
         ctx.font = '128px "Product Sans"';
 
         var canvasWith = this.name ? (ctx.measureText(this.name).width + 460 + 128) : (532 + 15);
-        this.$.canvas.setAttribute('width', canvasWith * this._scale);
-        this.$.canvas.setAttribute('height', 190 * this._scale);
+        this._canvas.setAttribute('width', canvasWith * this._scale);
+        this._canvas.setAttribute('height', 190 * this._scale);
 
         ctx.scale(this._scale, this._scale);
         ctx.font = '128px "Product Sans"';
@@ -142,7 +152,7 @@ Example to generate the Google Developer Group chapter logo:
         ctx.drawImage(this.$.gdgLogotype, 183.242, 40.847);
         ctx.fillText(this.name, 532, 143);
 
-        this.$.image.setAttribute('src', this.$.canvas.toDataURL());
+        this.$.image.setAttribute('src', this._canvas.toDataURL());
       }
     });
   </script>
