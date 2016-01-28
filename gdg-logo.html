@@ -73,23 +73,28 @@ Example to generate the Google Developer Group chapter logo:
         }
       },
 
-      _nameChanged: function() {
-        if (this._fontLoaded) {
+      created: function() {
+        this._loadFont(function() {
           this._drawImage();
-        }
+        }.bind(this));
       },
 
-      created: function() {
-        var self = this;
+      _loadFont: function(cb) {
         WebFont.load({
           google: {
             families: ['Product Sans']
           },
           active: function() {
-            self._fontLoaded = true;
-            self._drawImage();
-          }
+            this._fontLoaded = true;
+            cb();
+          }.bind(this)
         });
+      },
+
+      _nameChanged: function() {
+        if (this._fontLoaded) {
+          this._drawImage();
+        }
       },
 
       _drawImage: function() {
