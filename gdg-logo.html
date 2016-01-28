@@ -38,7 +38,6 @@ Example to generate the Google Developer Group chapter logo:
     <div hidden>
       <img id="gdgIcon" src="gdg_icon.svg">
       <img id="gdgLogotype" src="gdg_logotype.svg">
-      <canvas id="canvas"></canvas>
     </div>
   </template>
 
@@ -57,6 +56,16 @@ Example to generate the Google Developer Group chapter logo:
         },
 
         /**
+         * The canvas
+         */
+        _canvas: {
+          type: Object,
+          value: function() {
+            return document.createElement('canvas');
+          }
+        },
+
+        /**
          * The scale of the output image.
          */
         _scale: {
@@ -65,40 +74,86 @@ Example to generate the Google Developer Group chapter logo:
         },
 
         /**
+         * Flag to know if the resources have been loaded.
+         */
+        _resourcesLoaded: {
+          type: Boolean,
+          computed: '_computedResourcesLoaded(_fontLoaded, _gdgIconLoaded, _gdgLogotypeLoaded)'
+        },
+
+        /**
          * Flag to know if the 'Product Sans' family font has been loaded.
          */
         _fontLoaded: {
-          type: Boolean,
-          value: false
+          type: Boolean
+        },
+
+        /**
+         * Flag to know if the icon image has been loaded.
+         */
+        _gdgIconLoaded: {
+          type: Boolean
+        },
+
+        /**
+         * Flag to know if the logotype image has been loaded.
+         */
+        _gdgLogotypeLoaded: {
+          type: Boolean
         }
       },
 
+      ready: function() {
+        this._loadResources();
+      },
+
       _nameChanged: function() {
-        if (this._fontLoaded) {
+        if (this._resourcesLoaded) {
           this._drawImage();
         }
       },
 
-      created: function() {
-        var self = this;
+      _computedResourcesLoaded: function(_fontLoaded, _gdgIconLoaded, _gdgLogotypeLoaded) {
+        if (_fontLoaded && _gdgIconLoaded && _gdgLogotypeLoaded) {
+          this._drawImage();
+        }
+
+        return _fontLoaded && _gdgIconLoaded && _gdgLogotypeLoaded;
+      },
+
+      _loadResources: function() {
+        this._loadImages();
+        this._loadFont();
+      },
+
+      _loadImages: function() {
+        this.$.gdgIcon.addEventListener('load', function() {
+          this._gdgIconLoaded = true;
+        }.bind(this));
+
+        this.$.gdgLogotype.addEventListener('load', function() {
+          this._gdgLogotypeLoaded = true;
+        }.bind(this));
+      },
+
+      _loadFont: function() {
         WebFont.load({
           google: {
             families: ['Product Sans']
           },
           active: function() {
-            self._fontLoaded = true;
-            self._drawImage();
-          }
+            this._fontLoaded = true;
+          }.bind(this)
         });
       },
 
       _drawImage: function() {
-        var ctx = this.$.canvas.getContext('2d');
+        var ctx = this._canvas.getContext('2d');
         ctx.font = '128px "Product Sans"';
 
         var canvasWith = this.name ? (ctx.measureText(this.name).width + 460 + 128) : (532 + 15);
-        this.$.canvas.setAttribute('width', canvasWith * this._scale);
-        this.$.canvas.setAttribute('height', 190 * this._scale);
+        this._canvas.setAttribute('width', canvasWith * this._scale);
+        this._canvas.setAttribute('height', 190 * this._scale);
 
         ctx.scale(this._scale, this._scale);
         ctx.font = '128px "Product Sans"';
@@ -108,7 +163,7 @@ Example to generate the Google Developer Group chapter logo:
         ctx.drawImage(this.$.gdgLogotype, 183.242, 40.847);
         ctx.fillText(this.name, 532, 143);
 
-        this.$.image.setAttribute('src', this.$.canvas.toDataURL());
+        this.$.image.setAttribute('src', this._canvas.toDataURL());
       }
     });
   </script>
