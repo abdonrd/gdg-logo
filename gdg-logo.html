@@ -70,13 +70,36 @@ Example to generate the Google Developer Group chapter logo:
         _fontLoaded: {
           type: Boolean,
           value: false
+        },
+
+        /**
+         * Flag to know if the images have been loaded.
+         */
+        _imagesLoaded: {
+          type: Boolean,
+          value: false
         }
       },
 
       created: function() {
-        this._loadFont(function() {
+        this._loadResources(function() {
           this._drawImage();
         }.bind(this));
+      },
+
+      _loadResources: function(cb) {
+        this._loadImages(function() {
+          this._isResourcesLoaded(cb);
+        }.bind(this));
+        this._loadFont(function() {
+          this._isResourcesLoaded(cb);
+        }.bind(this));
+      },
+
+      _loadImages: function(cb) {
+        // TODO: Remove imgs from the template and load images imperative
+        this._imagesLoaded = true;
+        cb();
       },
 
       _loadFont: function(cb) {
@@ -91,8 +114,14 @@ Example to generate the Google Developer Group chapter logo:
         });
       },
 
+      _isResourcesLoaded: function(cb) {
+        if (this._imagesLoaded && this._fontLoaded) {
+          cb();
+        }
+      },
+
       _nameChanged: function() {
-        if (this._fontLoaded) {
+        if (this._imagesLoaded && this._fontLoaded) {
           this._drawImage();
         }
       },
