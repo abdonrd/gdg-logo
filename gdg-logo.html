@@ -74,66 +74,77 @@ Example to generate the Google Developer Group chapter logo:
         },
 
         /**
-         * Flag to know if the 'Product Sans' family font has been loaded.
+         * Flag to know if the resources have been loaded.
          */
-        _fontLoaded: {
+        _resourcesLoaded: {
           type: Boolean,
-          value: false
+          computed: '_computedResourcesLoaded(_fontLoaded, _gdgIconLoaded, _gdgLogotypeLoaded)'
         },
 
         /**
-         * Flag to know if the images have been loaded.
+         * Flag to know if the 'Product Sans' family font has been loaded.
          */
-        _imagesLoaded: {
-          type: Boolean,
-          value: false
+        _fontLoaded: {
+          type: Boolean
+        },
+
+        /**
+         * Flag to know if the icon image has been loaded.
+         */
+        _gdgIconLoaded: {
+          type: Boolean
+        },
+
+        /**
+         * Flag to know if the logotype image has been loaded.
+         */
+        _gdgLogotypeLoaded: {
+          type: Boolean
         }
       },
 
       ready: function() {
-        this._loadResources(function() {
+        this._loadResources();
+      },
+
+      _nameChanged: function() {
+        if (this._resourcesLoaded) {
           this._drawImage();
+        }
+      },
+
+      _computedResourcesLoaded: function(_fontLoaded, _gdgIconLoaded, _gdgLogotypeLoaded) {
+        if (_fontLoaded && _gdgIconLoaded && _gdgLogotypeLoaded) {
+          this._drawImage();
+        }
+
+        return _fontLoaded && _gdgIconLoaded && _gdgLogotypeLoaded;
+      },
+
+      _loadResources: function() {
+        this._loadImages();
+        this._loadFont();
+      },
+
+      _loadImages: function() {
+        this.$.gdgIcon.addEventListener('load', function() {
+          this._gdgIconLoaded = true;
+        }.bind(this));
+
+        this.$.gdgLogotype.addEventListener('load', function() {
+          this._gdgLogotypeLoaded = true;
         }.bind(this));
       },
 
-      _loadResources: function(cb) {
-        this._loadImages(function() {
-          this._isResourcesLoaded(cb);
-        }.bind(this));
-
-        this._loadFont(function() {
-          this._isResourcesLoaded(cb);
-        }.bind(this));
-      },
-
-      _loadImages: function(cb) {
-        // TODO: Remove imgs from the template and load images imperative
-        this._imagesLoaded = true;
-        cb();
-      },
-
-      _loadFont: function(cb) {
+      _loadFont: function() {
         WebFont.load({
           google: {
             families: ['Product Sans']
           },
           active: function() {
             this._fontLoaded = true;
-            cb();
           }.bind(this)
         });
-      },
-
-      _isResourcesLoaded: function(cb) {
-        if (this._imagesLoaded && this._fontLoaded) {
-          cb();
-        }
-      },
-
-      _nameChanged: function() {
-        if (this._imagesLoaded && this._fontLoaded) {
-          this._drawImage();
-        }
       },
 
       _drawImage: function() {
