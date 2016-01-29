@@ -17,3 +17,9 @@ Example to generate the Google Developer Group chapter logo:
 ```html
 <gdg-logo name="Spain"></gdg-logo>
 ```
+
+## Install
+
+```sh
+bower install gdg-logo
+```
