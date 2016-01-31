@@ -28,8 +28,12 @@ Example to generate the Google Developer Group chapter logo:
 <dom-module id="gdg-logo">
   <template>
     <style>
+      :host {
+        @apply(--gdg-logo);
+      }
       #image {
         max-width: 100%;
+        @apply(--gdg-logo-image);
       }
     </style>
 
