@@ -78,6 +78,7 @@ Example to generate the Google Developer Group chapter logo:
          */
         _resourcesLoaded: {
           type: Boolean,
+          value: false,
           computed: '_computedResourcesLoaded(_fontLoaded, _gdgIconLoaded, _gdgLogotypeLoaded)'
         },
 
@@ -85,21 +86,24 @@ Example to generate the Google Developer Group chapter logo:
          * Flag to know if the 'Product Sans' family font has been loaded.
          */
         _fontLoaded: {
-          type: Boolean
+          type: Boolean,
+          value: false
         },
 
         /**
          * Flag to know if the icon image has been loaded.
          */
         _gdgIconLoaded: {
-          type: Boolean
+          type: Boolean,
+          value: false
         },
 
         /**
          * Flag to know if the logotype image has been loaded.
          */
         _gdgLogotypeLoaded: {
-          type: Boolean
+          type: Boolean,
+          value: false
         }
       },
 
