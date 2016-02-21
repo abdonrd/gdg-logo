@@ -18,13 +18,19 @@ This code may only be used under the MIT license.
     <link rel="import" href="../gdg-logo.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
-      .generator  {
+      .generator {
         margin: 0 0 40px;
         padding: 20px;
       }
 
       .generator paper-input {
         margin-bottom: 1em;
+      }
+
+      .generator .hint {
+        float:right;
+        font-size: .8em;
+        margin-top: 15px;
       }
 
       .footer {
@@ -55,6 +61,7 @@ This code may only be used under the MIT license.
         <template is="dom-bind">
           <paper-input label="City name" value="{{name::input}}"></paper-input>
           <gdg-logo name="{{name}}"></gdg-logo>
+          <span class="hint">Right click in the image > "Save image as..."</span>
         </template>
         <script>
           document.querySelector('template[is="dom-bind"]').name = 'Spain';

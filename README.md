@@ -6,13 +6,13 @@ _[Demo and API docs](https://abdonrd.github.io/gdg-logo/)_
 
 Polymer element to generate the [Google Developer Group logo](https://developers.google.com/groups/logo/).
 
-## Install
+### Install
 
 ```sh
 bower install gdg-logo
 ```
 
-## Use
+### Use
 
 Example to get the Google Developer Group program logo:
 
