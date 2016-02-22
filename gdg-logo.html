@@ -5,7 +5,7 @@ This code may only be used under the MIT license.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+<script src="scripts/webfontloader.js"></script>
 
 <!--
 Polymer element to generate the Google Developer Group logo.
@@ -36,8 +36,8 @@ Example to generate the Google Developer Group chapter logo:
     <img id="image">
 
     <div hidden>
-      <img id="gdgIcon" src="gdg_icon.svg">
-      <img id="gdgLogotype" src="gdg_logotype.svg">
+      <img id="gdgIcon" src="images/gdg_icon.svg">
+      <img id="gdgLogotype" src="images/gdg_logotype.svg">
     </div>
   </template>
 
@@ -145,7 +145,7 @@ Example to generate the Google Developer Group chapter logo:
           google: {
             families: ['Product Sans']
           },
-          active: function() {
+          fontactive: function() {
             this._fontLoaded = true;
           }.bind(this)
         });
