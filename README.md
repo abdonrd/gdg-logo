@@ -25,3 +25,9 @@ Example to generate the Google Developer Group chapter logo:
 ```html
 <gdg-logo name="Spain"></gdg-logo>
 ```
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2016 Abdón Rodríguez Davila (@abdonrd)
