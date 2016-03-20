@@ -1,0 +1,174 @@
+<!--
+@license
+Copyright (c) 2016 Abdón Rodríguez Davila (@abdonrd). All rights reserved.
+This code may only be used under the MIT style license found at LICENSE.md
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="webfontloader-import.html">
+
+<!--
+Polymer element to generate the Google Developer Group logo.
+
+Example to get the Google Developer Group program logo:
+
+```html
+<gdg-logo></gdg-logo>
+```
+
+Example to generate the Google Developer Group chapter logo:
+
+```html
+<gdg-logo name="Spain"></gdg-logo>
+```
+
+@demo demo/index.html
+-->
+
+<dom-module id="gdg-logo">
+  <template>
+    <style>
+      #image {
+        max-width: 100%;
+      }
+    </style>
+
+    <img id="image">
+
+    <div hidden>
+      <img id="gdgIcon" src="images/gdg_icon.svg">
+      <img id="gdgLogotype" src="images/gdg_logotype.svg">
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'gdg-logo',
+
+      properties: {
+        /**
+         * The name of the GDG chapter.
+         */
+        name: {
+          type: String,
+          value: '',
+          observer: '_nameChanged'
+        },
+
+        /**
+         * The canvas
+         */
+        _canvas: {
+          type: Object,
+          value: function() {
+            return document.createElement('canvas');
+          }
+        },
+
+        /**
+         * The scale of the output image.
+         */
+        _scale: {
+          type: Number,
+          value: 2
+        },
+
+        /**
+         * Flag to know if the resources have been loaded.
+         */
+        _resourcesLoaded: {
+          type: Boolean,
+          value: false,
+          computed: '_computedResourcesLoaded(_fontLoaded, _gdgIconLoaded, _gdgLogotypeLoaded)'
+        },
+
+        /**
+         * Flag to know if the 'Product Sans' family font has been loaded.
+         */
+        _fontLoaded: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * Flag to know if the icon image has been loaded.
+         */
+        _gdgIconLoaded: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * Flag to know if the logotype image has been loaded.
+         */
+        _gdgLogotypeLoaded: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      ready: function() {
+        this._loadResources();
+      },
+
+      _nameChanged: function() {
+        if (this._resourcesLoaded) {
+          this._drawImage();
+        }
+      },
+
+      _computedResourcesLoaded: function(_fontLoaded, _gdgIconLoaded, _gdgLogotypeLoaded) {
+        if (_fontLoaded && _gdgIconLoaded && _gdgLogotypeLoaded) {
+          this._drawImage();
+        }
+
+        return _fontLoaded && _gdgIconLoaded && _gdgLogotypeLoaded;
+      },
+
+      _loadResources: function() {
+        this._loadImages();
+        this._loadFont();
+      },
+
+      _loadImages: function() {
+        this.$.gdgIcon.addEventListener('load', function() {
+          this._gdgIconLoaded = true;
+        }.bind(this));
+
+        this.$.gdgLogotype.addEventListener('load', function() {
+          this._gdgLogotypeLoaded = true;
+        }.bind(this));
+      },
+
+      _loadFont: function() {
+        WebFont.load({
+          google: {
+            families: ['Product Sans']
+          },
+          fontactive: function() {
+            this._fontLoaded = true;
+          }.bind(this)
+        });
+      },
+
+      _drawImage: function() {
+        var ctx = this._canvas.getContext('2d');
+        ctx.font = '128px "Product Sans"';
+
+        var canvasWith = this.name ? (ctx.measureText(this.name).width + 460 + 128) : (532 + 15);
+        this._canvas.setAttribute('width', canvasWith * this._scale);
+        this._canvas.setAttribute('height', 190 * this._scale);
+
+        ctx.scale(this._scale, this._scale);
+        ctx.font = '128px "Product Sans"';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.54)';
+
+        ctx.drawImage(this.$.gdgIcon, 0, 0);
+        ctx.drawImage(this.$.gdgLogotype, 183.242, 40.847);
+        ctx.fillText(this.name, 532, 143);
+
+        this.$.image.setAttribute('src', this._canvas.toDataURL());
+      }
+    });
+  </script>
+</dom-module>
