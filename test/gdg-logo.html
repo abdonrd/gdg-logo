@@ -1,13 +1,16 @@
-<!doctype html>
 <!--
 @license
 Copyright (c) 2016 Abdón Rodríguez Davila (@abdonrd). All rights reserved.
-This code may only be used under the MIT style license found at LICENSE.md
+This code may only be used under the MIT style license found at https://abdonrd.github.io/LICENSE.txt
 -->
-<html>
+
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>gdg-logo test</title>
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
@@ -15,6 +18,19 @@ This code may only be used under the MIT style license found at LICENSE.md
     <link rel="import" href="../gdg-logo.html">
   </head>
   <body>
+    <test-fixture id="basic">
+      <template>
+        <gdg-logo></gdg-logo>
+      </template>
+    </test-fixture>
 
+    <script>
+      suite('gdg-logo', function() {
+        test('instantiating the element works', function() {
+          var element = fixture('basic');
+          assert.equal(element.is, 'gdg-logo');
+        });
+      });
+    </script>
   </body>
 </html>
