@@ -1,33 +1,25 @@
-[![Build status](https://travis-ci.org/abdonrd/gdg-logo.svg?branch=master)](https://travis-ci.org/abdonrd/gdg-logo)
+[![Build status][travis-image]][travis-url]
 
-_[Demo and API docs](https://abdonrd.github.io/gdg-logo/)_
-
-## &lt;gdg-logo&gt;
+## \<gdg-logo\>
 
 Polymer element to generate the [Google Developer Group logo](https://developers.google.com/groups/logo/).
 
-### Install
-
-```sh
-bower install gdg-logo
+Example:
+<!---
 ```
-
-### Use
-
-Example to get the Google Developer Group program logo:
-
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="gdg-logo.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
 <gdg-logo></gdg-logo>
-```
-
-Example to generate the Google Developer Group chapter logo:
-
-```html
 <gdg-logo name="Spain"></gdg-logo>
 ```
 
-## License
-
-Copyright (c) 2016 Abdón Rodríguez Davila (@abdonrd). All rights reserved.
-
-This code may only be used under the MIT style license found at [LICENSE.md](LICENSE.md)
+[travis-image]: https://travis-ci.org/abdonrd/gdg-logo.svg?branch=master
+[travis-url]: https://travis-ci.org/abdonrd/gdg-logo
