@@ -1,35 +1,30 @@
 {
   "name": "gdg-logo",
-  "version": "0.4.1",
+  "description": "Polymer element to generate the Google Developer Group logo",
   "authors": [
     "Abdón Rodríguez Davila <a@abdonrd.com>"
   ],
-  "description": "Polymer element to generate the Google Developer Group logo.",
   "keywords": [
     "web-component",
     "polymer",
     "google",
     "gdg"
   ],
-  "main": "gdg-logo.html",
+  "license": "https://abdonrd.github.io/LICENSE.txt",
   "repository": {
     "type": "git",
     "url": "git://github.com/abdonrd/gdg-logo.git"
   },
-  "license": "MIT",
-  "homepage": "https://github.com/abdonrd/gdg-logo",
-  "ignore": [
-    "/.*",
-    "/test/"
-  ],
+  "main": "gdg-logo.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.2.0",
+    "polymer": "Polymer/polymer#^1.6.0",
     "webfontloader": "^1.6.0"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "iron-component-page": "PolymerElements/iron-component-page#^1.1.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.0",
     "paper-input": "PolymerElements/paper-input#^1.1.0",
-    "web-component-tester": "^4.0.0"
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   }
 }
