@@ -1,4 +1,5 @@
 [![Build status][travis-image]][travis-url]
+[![Published on webcomponents.org][webcomponents-image]][webcomponents-url]
 
 ## \<gdg-logo\>
 
@@ -23,3 +24,5 @@ Example:
 
 [travis-image]: https://travis-ci.org/abdonrd/gdg-logo.svg?branch=master
 [travis-url]: https://travis-ci.org/abdonrd/gdg-logo
+[webcomponents-image]: https://img.shields.io/badge/webcomponents.org-published-blue.svg
+[webcomponents-url]: https://beta.webcomponents.org/element/abdonrd/gdg-logo
