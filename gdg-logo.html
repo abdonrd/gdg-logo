@@ -43,6 +43,8 @@ Example to generate the Google Developer Group chapter logo:
   </template>
 
   <script>
+    /* global WebFont:false */
+
     Polymer({
       is: 'gdg-logo',
 
@@ -118,6 +120,7 @@ Example to generate the Google Developer Group chapter logo:
         }
       },
 
+      // eslint-disable-next-line max-len
       _computedResourcesLoaded: function(_fontLoaded, _gdgIconLoaded, _gdgLogotypeLoaded) {
         if (_fontLoaded && _gdgIconLoaded && _gdgLogotypeLoaded) {
           this._drawImage();
@@ -153,10 +156,17 @@ Example to generate the Google Developer Group chapter logo:
       },
 
       _drawImage: function() {
+        var canvasWith;
+
         var ctx = this._canvas.getContext('2d');
         ctx.font = '128px "Product Sans"';
 
-        var canvasWith = this.name ? (ctx.measureText(this.name).width + 460 + 128) : (532 + 15);
+        if (this.name) {
+          canvasWith = ctx.measureText(this.name).width + 460 + 128;
+        } else {
+          canvasWith = 532 + 15;
+        }
+
         this._canvas.setAttribute('width', canvasWith * this._scale);
         this._canvas.setAttribute('height', 190 * this._scale);
 
