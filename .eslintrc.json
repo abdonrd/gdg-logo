@@ -1,0 +1,6 @@
+{
+  "extends": "ibmresearch/html",
+  "globals": {
+    "Polymer": false
+  }
+}
